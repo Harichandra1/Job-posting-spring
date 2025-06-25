@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Job Opening</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black bg-opacity-40 min-h-screen flex items-center justify-center">
+
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-2xl">
+        <h2 class="text-2xl font-semibold text-center mb-6">Create Job Opening</h2>
+
+        <form th:action="@{/add-job}" th:object="${job}" method="post" class="space-y-5">
+
+            <!-- Row 1 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-medium mb-1">Job Title</label>
+                    <input type="text" th:field="*{jobTitle}" class="input-style" placeholder="e.g. Full Stack Developer" required>
+                </div>
+                <div>
+                    <label class="block font-medium mb-1">Company Name</label>
+                    <input type="text" th:field="*{companyName}" class="input-style" placeholder="e.g. Amazon, Swiggy" required>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-medium mb-1">Location</label>
+                    <input type="text" th:field="*{location}" class="input-style" placeholder="Preferred location">
+                </div>
+                <div>
+                    <label class="block font-medium mb-1">Job Type</label>
+                    <select th:field="*{jobType}" class="input-style">
+                        <option value="FullTime">FullTime</option>
+                        <option value="PartTime">PartTime</option>
+                        <option value="Remote">Remote</option>
+                        <option value="Contract">Contract</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-medium mb-1">Salary Min</label>
+                    <input type="number" th:field="*{salaryMin}" class="input-style" placeholder="₹ min">
+                </div>
+                <div>
+                    <label class="block font-medium mb-1">Salary Max</label>
+                    <input type="number" th:field="*{salaryMax}" class="input-style" placeholder="₹ max">
+                </div>
+            </div>
+
+            <!-- Row 4 -->
+            <div>
+                <label class="block font-medium mb-1">Application Deadline</label>
+                <input type="date" th:field="*{deadline}" class="input-style" required>
+            </div>
+
+            <!-- Description -->
+            <div>
+                <label class="block font-medium mb-1">Job Description</label>
+                <textarea th:field="*{description}" rows="4" class="input-style" placeholder="Please share a description..."></textarea>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex justify-between items-center mt-4">
+                <button type="button" class="border px-6 py-2 rounded-full text-gray-600 hover:bg-gray-100">Save Draft</button>
+                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700">Publish →</button>
+            </div>
+        </form>
+    </div>
+
+    <style>
+        .input-style {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
+            outline: none;
+        }
+        .input-style:focus {
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 1px #7c3aed;
+        }
+    </style>
+
+</body>
+</html>

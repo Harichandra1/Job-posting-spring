@@ -1,0 +1,4 @@
+com/example/jobportal/config/DataSeeder.class
+com/example/jobportal/JobportalApplication.class
+com/example/jobportal/repository/JobRepository.class
+com/example/jobportal/model/Job.class

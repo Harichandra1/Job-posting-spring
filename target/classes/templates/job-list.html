@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Listings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Navbar -->
+<nav class="bg-white shadow p-4 sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center">
+        <!-- Logo -->
+        <div class="text-xl font-bold text-purple-600">JobPortal</div>
+
+        <!-- Menu items -->
+        <div class="hidden md:flex gap-6 text-gray-700 font-medium">
+            <a href="/" class="hover:text-purple-600">Home</a>
+            <a href="/jobs" class="hover:text-purple-600">Find Jobs</a>
+            <a href="/talents" class="hover:text-purple-600">Find Talents</a>
+            <a href="/about" class="hover:text-purple-600">About Us</a>
+            <a href="/testimonials" class="hover:text-purple-600">Testimonials</a>
+        </div>
+
+        <!-- Create Job Button -->
+        <div class="mt-4 md:mt-0">
+            <a href="/add-job" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700">Create Job</a>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Filter Form -->
+<form method="get" action="/" class="bg-white p-6 shadow flex flex-wrap gap-4 justify-between mx-4 mt-6 rounded-xl">
+
+    <input type="text" name="keyword" 
+           th:value="${param.keyword}" 
+           placeholder="Search by Title"
+           class="border rounded px-4 py-2 w-full md:w-[30%]">
+
+    <select name="location" class="border rounded px-4 py-2 w-full md:w-[20%]">
+        <option value="" th:selected="${param.location == null or param.location == ''}">Location</option>
+        <option value="Remote" th:selected="${param.location == 'Remote'}">Remote</option>
+        <option value="Bangalore" th:selected="${param.location == 'Bangalore'}">Bangalore</option>
+        <option value="Hyderabad" th:selected="${param.location == 'Hyderabad'}">Hyderabad</option>
+    </select>
+
+    <select name="jobType" class="border rounded px-4 py-2 w-full md:w-[20%]">
+        <option value="" th:selected="${param.jobType == null or param.jobType == ''}">Job Type</option>
+        <option value="FullTime" th:selected="${param.jobType == 'FullTime'}">FullTime</option>
+        <option value="PartTime" th:selected="${param.jobType == 'PartTime'}">PartTime</option>
+        <option value="Remote" th:selected="${param.jobType == 'Remote'}">Remote</option>
+    </select>
+
+    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded">Filter</button>
+</form>
+
+<!-- Job Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    <div th:each="job : ${jobs}" class="bg-white shadow-md rounded-xl p-5 hover:shadow-lg transition">
+        <div class="flex justify-between items-center mb-3">
+            <span class="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full">24h Ago</span>
+            <img th:src="@{/img/company-logo.png}" alt="Logo" class="h-8 w-8 rounded-full">
+        </div>
+        <h2 class="text-lg font-bold mb-1" th:text="${job.jobTitle}">Job Title</h2>
+        <div class="text-sm text-gray-600 mb-2" th:text="${job.companyName}">Company</div>
+        <div class="flex items-center text-sm text-gray-500 space-x-4 mb-3">
+            <span>👤 1–3 yr Exp</span>
+            <span th:text="${job.location}">Location</span>
+            <span th:text="|${job.salaryMax} LPA|">12 LPA</span>
+        </div>
+        <p class="text-sm text-gray-700 mb-3" th:text="${job.description}">Short description...</p>
+        <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded-full text-sm hover:bg-blue-600">Apply Now</a>
+    </div>
+</div>
+
+</body>
+</html>
